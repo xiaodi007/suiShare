@@ -17,12 +17,11 @@ const Content = () => {
         {/* 标题 */}
         <div className="w-[60%] m-auto mb-20 text-center">
           <div className="mb-[2vh] text-[4vw] font-bold">
-            Decentralize Your Voice, Own Your Journey
+            Create Freely, Share Securely On Sui.
           </div>
           <div className="mb-[3vh] text-gray-700  text-[1.2vw]">
-            suiShare empowers creators to share multimedia content, build loyal
-            communities, and monetize seamlessly through Key access passes—all
-            powered by Web3 ownership and privacy on the Walrus
+            No middlemen. No limits. Publish rich media with full ownership,
+gated access, and privacy <br /> all powered by <b>Sui</b> & <b>Walrus</b>.
           </div>
         </div>
         {/* 搜索 */}
@@ -32,39 +31,38 @@ const Content = () => {
       </div>
       {/* 内容介绍 */}
       <div className="w-[80%] m-auto">
-        <div className="mb-6 text-[1.6vw] font-bold">What We do</div>
+        <div className="mb-6 text-[1.6vw] font-bold">What We Do</div>
         <Row gutter={20} style={{ display: "flex", alignItems: "stretch" }}>
           <Col className="gutter-row" span={8}>
             <div className="h-full bg-white p-[2vw] rounded-md">
               <div className="mb-4 text-[1.4vw] font-bold">
-                True Ownership, Zero Middlemen
+                On-Chain Ownership
               </div>
-              <div className="text-[1.2vw] text-zinc-500">
-                Your Content, Your Rules ,Store profiles, posts, and social
-                links permanently on-chain. Control access with customizable NFT
-                passes and earn directly from supporters.
-              </div>
-            </div>
-          </Col>
-          <Col className="gutter-row" span={8}>
-            <div className="h-full bg-white p-[2vw] rounded-md">
-              <div className="mb-4 text-[1.4vw] font-bold">
-                Key Access, Deeper Connections
-              </div>
-              <div className="text-[1.2vw] text-zinc-500">
-                From concept to launch, we create stunning, user-centric
-                websites that elevate your brand and engage your audience.
+              <div className="text-[1.1vw] text-zinc-600  leading-relaxed">
+Profiles and posts are stored immutably on <b>Sui</b>.<br />
+You publish, you control, no middlemen.
               </div>
             </div>
           </Col>
           <Col className="gutter-row" span={8}>
             <div className="h-full bg-white p-[2vw] rounded-md">
               <div className="mb-4 text-[1.4vw] font-bold">
-                Built-In Privacy
+                Encrypted Access Control
               </div>
-              <div className="text-[1.2vw] text-zinc-500">
-                All uploaded files are encrypted and stored based on
-                Walrus. Access your data anytime, anywhere
+              <div className="text-[1.1vw] text-zinc-600 leading-relaxed">
+  Content is encrypted and verified through <b>Seal</b>.<br />
+  Only approved users can unlock access.
+              </div>
+            </div>
+          </Col>
+          <Col className="gutter-row" span={8}>
+            <div className="h-full bg-white p-[2vw] rounded-md">
+              <div className="mb-4 text-[1.4vw] font-bold">
+                 Decentralized Storage
+              </div>
+              <div className="text-[1.1vw] text-zinc-600 leading-relaxed">
+  Media is stored securely via <b>Walrus</b>.<br />
+  Always available. No centralized dependency.
               </div>
             </div>
           </Col>

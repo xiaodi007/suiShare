@@ -11,6 +11,8 @@ import {
   Radio,
 } from "antd";
 import dayjs from "dayjs";
+// import suiIcon from "@/assets/sui.svg";
+import suiIcon from "../../../../../public/assets/sui.svg";
 
 const GROUP_TYPE = {
   free: 0,
@@ -31,17 +33,25 @@ const CreateMyPageModal = ({
   initialData = {},
   onSubmit,
 }) => {
+  const [modalGroupType, setmodalGroupType] = useState(1);
   const [form] = Form.useForm();
   const groupType = Form.useWatch("groupType", form);
 
   useEffect(() => {
     if (open) {
       console.log("initialData: ", initialData);
-      
-      const { groupName, group_type, monthly, lifeTime, open_time, close_time } = initialData;
+
+      const {
+        groupName,
+        group_type,
+        monthly,
+        lifeTime,
+        open_time,
+        close_time,
+      } = initialData;
       if (actionType === "edit") {
-        console.log("edit: ",initialData);
-        
+        console.log("edit: ", initialData);
+        setmodalGroupType(GROUP_VALUE_TYPE[group_type]);
         form.setFieldsValue({
           name: groupName,
           groupType: GROUP_VALUE_TYPE[group_type],
@@ -117,15 +127,17 @@ const CreateMyPageModal = ({
             <Input placeholder="Name" />
           </Form.Item>
 
-          <Form.Item label="groupType" name="groupType">
-            <Radio.Group>
-              <Radio value="free">Free</Radio>
-              <Radio value="paid">Paid</Radio>
-              <Radio value="time">Time Capsule</Radio>
-            </Radio.Group>
-          </Form.Item>
+          {actionType === "create" && (
+            <Form.Item label="groupType" name="groupType">
+              <Radio.Group>
+                <Radio value="free">Free</Radio>
+                <Radio value="paid">Paid</Radio>
+                <Radio value="time">Time Capsule</Radio>
+              </Radio.Group>
+            </Form.Item>
+          )}
 
-          {groupType === "paid" && (
+          {(modalGroupType === "paid" || groupType === "paid")   && (
             <>
               <Form.Item name="monthly" label="Monthly">
                 <InputNumber
@@ -133,7 +145,18 @@ const CreateMyPageModal = ({
                   placeholder="0.00"
                   className="flex-1"
                   controls={false}
-                  suffix={"SUI 🧿"}
+                  suffix={
+                    <span
+                      style={{ display: "flex", alignItems: "center", gap: 4 }}
+                    >
+                      <img
+                        src={suiIcon}
+                        alt="SUI"
+                        style={{ width: 16, height: 16 }}
+                      />
+                      <span style={{ fontWeight: 500 }}>SUI</span>
+                    </span>
+                  }
                   style={{ width: 160 }}
                 />
               </Form.Item>
@@ -144,14 +167,25 @@ const CreateMyPageModal = ({
                   placeholder="0.00"
                   className="flex-1"
                   controls={false}
-                  suffix={"SUI 🧿"}
+                  suffix={
+                    <span
+                      style={{ display: "flex", alignItems: "center", gap: 4 }}
+                    >
+                      <img
+                        src={suiIcon}
+                        alt="SUI"
+                        style={{ width: 16, height: 16 }}
+                      />
+                      <span style={{ fontWeight: 500 }}>SUI</span>
+                    </span>
+                  }
                   style={{ width: 160 }}
                 />
               </Form.Item>
             </>
           )}
 
-          {groupType === "time" && (
+          {(modalGroupType === "time" || groupType === "time") && (
             <>
               <Form.Item name="openTime" label="Open Time">
                 <DatePicker />

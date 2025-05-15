@@ -31,7 +31,7 @@ const App = () => {
   return (
       <div className="relative bg-[#F5F8FF] h-[100vh] overflow-auto ">
           <div className="relative px-10 py-4 pb-6 flex justify-between items-center z-10">
-            <div className="text-primary text-3xl font-bold">suiShare</div>
+            <div className="text-primary text-3xl font-bold">SuiShare</div>
             <div className="flex items-center">
               <div className="h-[40px] flex items-center px-8  bg-[#FAEAF6] rounded-full">
               <span className={`px-4 cursor-pointer ${isMe ? 'text-gray-500' : 'font-semibold' }`} onClick={() => navigate('/')}>Home</span>
