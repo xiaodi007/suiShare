@@ -1,4 +1,4 @@
-import { Spin, Radio, Tabs, message, Space, Tooltip } from "antd";
+import { Spin, Radio, Tabs, message, Space, Tooltip, Modal } from "antd";
 import { EditOutlined, FacebookFilled, IeCircleFilled, PaperClipOutlined, TwitterCircleFilled } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
@@ -17,6 +17,7 @@ import WalrusMedia from "../../components/WalrusMedia";
 
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { downloadAndDecrypt } from "../../web3/downloadAndDecrypt";
+import { getSessionKey } from "../../lib/sessionKeyStore";
 
 import {
   getUserProfile,
@@ -199,12 +200,29 @@ export default function Detail() {
         .filter(Boolean); // 移除为 null 的项
       console.log("fileList: ", data);
 
-      if (group_type && isExpired) {
-        data = await handleDecryptFileList(data, userPass?.id);
-        console.log("decrypt: ", data);
-        setFileList(data || []);
-        return;
-      }
+  if (group_type === 1 && isExpired) {
+    const sessionKey = getSessionKey();
+
+    if (sessionKey) {
+      const decrypted = await handleDecryptFileList(data, userPass?.id);
+      console.log("decrypt: ", decrypted);
+      setFileList?.(decrypted || []);
+      return;
+    }
+
+    // 弹窗确认签名
+    Modal.confirm({
+      title: 'Signature Required',
+      content: 'Decryption requires your signature. Do you want to proceed?',
+      okText: 'Yes',
+      cancelText: 'Cancel',
+      onOk: async () => {
+        const decrypted = await handleDecryptFileList(data, userPass?.id);
+        console.log("decrypt: ", decrypted);
+        setFileList?.(decrypted || []);
+      },
+    });
+  }
       setFileList(data || []);
     } catch (err) {
       console.log(err);

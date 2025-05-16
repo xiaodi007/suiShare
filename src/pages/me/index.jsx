@@ -1,4 +1,4 @@
-import { message, Spin, Tabs, Button, Empty } from "antd";
+import { message, Spin, Tabs, Button, Empty, Modal } from "antd";
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import dayjs from "dayjs";
@@ -10,6 +10,8 @@ import {
   useSignPersonalMessage,
 } from "@mysten/dapp-kit";
 import { SealClient, SessionKey, getAllowlistedKeyServers } from "@mysten/seal";
+
+import { getSessionKey } from "../../lib/sessionKeyStore";
 
 import UserProfile from "./components/UserProfile";
 import MediaList from "./components/MediaList";
@@ -354,12 +356,29 @@ export default function Me() {
         .filter(Boolean); // 移除为 null 的项
       console.log("fileList: ", data);
 
-      if (group_type === 1 && isExpired) {
-        data = await handleDecryptFileList(data, userPass?.id);
-        console.log("decrypt: ", data);
-        setFileList(data || []);
-        return;
-      }
+  if (group_type === 1 && isExpired) {
+    const sessionKey = getSessionKey();
+
+    if (sessionKey) {
+      const decrypted = await handleDecryptFileList(data, userPass?.id);
+      console.log("decrypt: ", decrypted);
+      setFileList?.(decrypted || []);
+      return;
+    }
+
+    // 弹窗确认签名
+    Modal.confirm({
+      title: 'Signature Required',
+      content: 'Decryption requires your signature. Do you want to proceed?',
+      okText: 'Yes',
+      cancelText: 'Cancel',
+      onOk: async () => {
+        const decrypted = await handleDecryptFileList(data, userPass?.id);
+        console.log("decrypt: ", decrypted);
+        setFileList?.(decrypted || []);
+      },
+    });
+  }
       setFileList(data || []);
     } catch (err) {
       console.log(err);
@@ -369,6 +388,8 @@ export default function Me() {
       setTableLoading(false);
     }
   };
+
+
 
   // 解密group下的文件
   const handleDecryptFileList = async (list, passId) => {
