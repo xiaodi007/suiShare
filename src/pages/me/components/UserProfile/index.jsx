@@ -18,12 +18,12 @@ const UserProfile = ({ user, onCreate, onEdit }) => {
   return (
     <div className="w-[80%] m-auto pb-20 relative flex">
       {/* 头像区域 */}
-      <div className="w-[140px] h-[140px] flex justify-center items-center flex-shrink-0 bg-white rounded-full overflow-hidden">
+      <div className="w-[140px] h-[140px] flex justify-center items-center flex-shrink-0 rounded-full overflow-hidden">
         {isEmpty ? (
           <img
             src="/assets/images/person.svg"
             alt="avatar"
-            className="w-[80px] h-[80px]"
+            className="w-[80px] h-[80px] object-cover"
           />
         ) : (
           <WalrusMedia blobId={user?.avatarUrl} width={90} height={90} isRound/>
