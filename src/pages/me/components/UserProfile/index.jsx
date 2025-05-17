@@ -72,10 +72,19 @@ const UserProfile = ({ user, onCreate, onEdit }) => {
               <EditOutlined style={{ color: '#666'}}/>
               <span className="text-black/70">Edit Profile</span>  
             </div>          
-            <div className="px-4 py-2  flex items-center gap-4 bg-[#f5f8ffe0] rounded-full cursor-pointer" onClick={() => window.open(`https://twitter.com/intent/tweet`, "_blank")}> 
-              <PaperClipOutlined style={{ color: '#666'}}/>
-              <span className="text-black/70">Share</span>  
-            </div>          
+<div
+  className="px-4 py-2 flex items-center gap-4 bg-[#f5f8ffe0] rounded-full cursor-pointer"
+  onClick={() => {
+    const shareText = `👀 This is my SuiShare homepage! Come check out what I’ve posted.`;
+    const shareUrl = `https://sui-share.vercel.app/detail?address=${user?.userAddress}`;
+    const hashtags = `SuiShare,Web3,DeContent`;
+    const tweetLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}&hashtags=${encodeURIComponent(hashtags)}`;
+    window.open(tweetLink, "_blank");
+  }}
+>
+  <PaperClipOutlined style={{ color: '#666' }} />
+  <span className="text-black/70">Share</span>
+</div>
           </div>
       )}
     </div>
