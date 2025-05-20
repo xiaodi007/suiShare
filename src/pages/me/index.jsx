@@ -105,7 +105,8 @@ export default function Me() {
   // 保存分组信息
   const saveGroupInfo = (data) => {
     const { objectId: groupId, capId, fields } = data || {};
-    const { name, fee_pre_month, open_time, close_time, group_type } = fields || {};
+    const { name, fee_pre_month, open_time, close_time, group_type } =
+      fields || {};
 
     console.log("fields", fields);
 
@@ -169,7 +170,7 @@ export default function Me() {
       twitter,
       telegram,
       facebook,
-    ];
+    ].map((item) => item ?? "");
     console.log("data: ", data, account.address);
 
     let tx;
@@ -356,29 +357,30 @@ export default function Me() {
         .filter(Boolean); // 移除为 null 的项
       console.log("fileList: ", data);
 
-  if (group_type === 1 && isExpired) {
-    const sessionKey = getSessionKey();
+      if (group_type === 1 && isExpired) {
+        const sessionKey = getSessionKey();
 
-    if (sessionKey) {
-      const decrypted = await handleDecryptFileList(data, userPass?.id);
-      console.log("decrypt: ", decrypted);
-      setFileList?.(decrypted || []);
-      return;
-    }
+        if (sessionKey) {
+          const decrypted = await handleDecryptFileList(data, userPass?.id);
+          console.log("decrypt: ", decrypted);
+          setFileList?.(decrypted || []);
+          return;
+        }
 
-    // 弹窗确认签名
-    Modal.confirm({
-      title: 'Signature Required',
-      content: 'Decryption requires your signature. Do you want to proceed?',
-      okText: 'Yes',
-      cancelText: 'Cancel',
-      onOk: async () => {
-        const decrypted = await handleDecryptFileList(data, userPass?.id);
-        console.log("decrypt: ", decrypted);
-        setFileList?.(decrypted || []);
-      },
-    });
-  }
+        // 弹窗确认签名
+        Modal.confirm({
+          title: "Signature Required",
+          content:
+            "Decryption requires your signature. Do you want to proceed?",
+          okText: "Yes",
+          cancelText: "Cancel",
+          onOk: async () => {
+            const decrypted = await handleDecryptFileList(data, userPass?.id);
+            console.log("decrypt: ", decrypted);
+            setFileList?.(decrypted || []);
+          },
+        });
+      }
       setFileList(data || []);
     } catch (err) {
       console.log(err);
@@ -389,14 +391,19 @@ export default function Me() {
     }
   };
 
-
-
   // 解密group下的文件
   const handleDecryptFileList = async (list, passId) => {
-    const res = await downloadAndDecrypt(list, suiClient, client, {
-      groupId: currentGroup?.groupId,
-      passId,
-    }, account?.address, signPersonalMessage);
+    const res = await downloadAndDecrypt(
+      list,
+      suiClient,
+      client,
+      {
+        groupId: currentGroup?.groupId,
+        passId,
+      },
+      account?.address,
+      signPersonalMessage
+    );
     return res;
   };
 
@@ -441,15 +448,26 @@ export default function Me() {
 
   // 视频预览
   const handleView = (row) => {
-    const filterList = fileList.filter((file) => file?.type !== 'image');
+    const filterList = fileList.filter((file) => file?.type !== "image");
     localStorage.setItem(
       "viewFile",
-      JSON.stringify({ videoInfo: row, currentGroup, userProfile, fileList: filterList })
+      JSON.stringify({
+        videoInfo: row,
+        currentGroup,
+        userProfile,
+        fileList: filterList,
+      })
     );
     if (row.type === "video") {
-      window.open(`/preview/video?objectId=${row.blobId}&type=${row.type}`, "_blank");
+      window.open(
+        `/preview/video?objectId=${row.blobId}&type=${row.type}`,
+        "_blank"
+      );
     } else {
-      window.open(`/preview/md?objectId=${row.blobId}&type=${row.type}`, "_blank");
+      window.open(
+        `/preview/md?objectId=${row.blobId}&type=${row.type}`,
+        "_blank"
+      );
     }
   };
 

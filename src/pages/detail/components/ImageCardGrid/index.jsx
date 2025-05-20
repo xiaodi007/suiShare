@@ -6,7 +6,7 @@ import WalrusMedia from "../../../../components/WalrusMedia";
 const ImageCardGrid = ({ data, loading, onView }) => {
 
   const handleView = (item) => {
-    if(item?.type === 'video') {
+    if(item?.type === 'video' || item?.type === 'md') {
       onView(item);
     }
   };
@@ -20,13 +20,14 @@ const ImageCardGrid = ({ data, loading, onView }) => {
               <div
                 key={index}
                 className="rounded-xl shadow-md overflow-hidden bg-white cursor-pointer hover:shadow-lg transition"
-                onClick={() => onView(item)}
+                onClick={() => handleView(item)}
               >
                 {
                    item?.fileName === 'document.md' 
                    ? <img src="/assets/images/message.png" className="w-full h-[124px]" />
                    : <WalrusMedia
                    blobId={item?.thumbnailBlobId || item?.decryptedUrl || item?.blobId}
+                   preview={item?.type === 'image'}
                    type={item?.type}
                    width={"100%"}
                    height={124}
