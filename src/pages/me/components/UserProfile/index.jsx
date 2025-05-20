@@ -75,7 +75,7 @@ const UserProfile = ({ user, onCreate, onEdit }) => {
 <div
   className="px-4 py-2 flex items-center gap-4 bg-[#f5f8ffe0] rounded-full cursor-pointer"
   onClick={() => {
-    const shareText = `🚀 I’m part of the future of content.\nCome see what I’ve created on SuiShare \nsecure, open, and on-chain.\n\nExplore: https://sui-share.vercel.app\nMy page: https://sui-share.vercel.app/detail?address=${user?.userAddress}`;
+    const shareText = `🚀 I’m part of the future of content.\nCome see what I’ve created on SuiShare \nsecure, open, and on-chain.\n\nExplore: https://sui-share.vercel.app/\nMy page: https://sui-share.vercel.app/detail?address=${user?.userAddress}`;
     // const shareUrl = `https://sui-share.vercel.app/`;
     const hashtags = `SuiShare,Sui,Walrus`;
     const tweetLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&hashtags=${encodeURIComponent(hashtags)}`;
