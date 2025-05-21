@@ -76,6 +76,7 @@ export default function Detail() {
   useEffect(() => {
     if (activeKey) {
       setIsExpired(true);
+      setNoPass(false);
       // 情况列表
       setFileList([]);
 
@@ -155,7 +156,7 @@ export default function Detail() {
       setActiveKey(items[0]?.key || null);
 
       // 保存信息
-      saveGroupInfo(data[0]);
+      saveGroupInfo(items[0]);
     } catch (err) {
       message.error("获取分组失败");
     }
@@ -291,7 +292,7 @@ export default function Detail() {
               background: `url(${bannerUrl || "/assets/images/bg_me.jpg"})`,
             }}
           ></div>
-          <div className="w-[80%] m-auto pt-10 pb-20 relative flex">
+          <div className="w-[80%] max-w-[1200px] m-auto pt-10 pb-20 relative flex">
             {/* 头像 */}
             <div className="w-[140px] h-[140px] flex justify-center items-center flex-shrink-0 bg-white rounded-full">
               <WalrusMedia
@@ -330,7 +331,7 @@ export default function Detail() {
         </div>
       </Spin>
       {/* 主页面内容 */}
-      <div className="w-[80%] h-full m-auto mt-[-60px] mb-20 px-10 pb-10 relative bg-white rounded-lg">
+      <div className="w-[80%] max-w-[1200px] mx-auto h-full m-auto mt-[-60px] mb-20 px-10 pb-10 relative bg-white rounded-lg">
         {/* 是否免费 */}
         <div className="pt-10 flex justify-center">
           <Radio.Group

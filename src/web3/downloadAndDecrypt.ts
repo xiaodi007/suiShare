@@ -5,6 +5,7 @@ import { approvePtb } from './ptb'
 import { getSessionKey } from '../lib/sessionKeyStore';
 import { initAndSignSessionKey } from '../lib/sessionKeyInitializer';
 import { AGGREGATOR_URL } from '../config/constants';
+import { message } from 'antd';
 
 export const downloadAndDecrypt = async (
   fileList: any[],
@@ -48,6 +49,7 @@ export const downloadAndDecrypt = async (
   const validItems = downloadResults.filter((r): r is { file: any; encryptedData: ArrayBuffer } => !!r);
   if (validItems.length === 0) {
     console.error("All downloads failed");
+    message.error('File loading failed!');
     return null;
   }
 

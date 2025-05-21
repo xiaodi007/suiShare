@@ -24,13 +24,13 @@ const ImageCardGrid = ({ data, loading, onView }) => {
               >
                 {
                    item?.fileName === 'document.md' 
-                   ? <img src="/assets/images/message.png" className="w-full h-[124px]" />
+                   ? <img src="/assets/images/message.png" className="w-full h-[140px]" />
                    : <WalrusMedia
                    blobId={item?.thumbnailBlobId || item?.decryptedUrl || item?.blobId}
                    preview={item?.type === 'image'}
                    type={item?.type}
                    width={"100%"}
-                   height={124}
+                   height={140}
                  />
                 }
                 

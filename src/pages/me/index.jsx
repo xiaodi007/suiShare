@@ -70,7 +70,12 @@ export default function Me() {
   const { blobUrl: bannerUrl } = useWalrusBlob(userProfile?.bannerUrl);
 
   const { mutate: signPersonalMessage } = useSignPersonalMessage();
-  const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction();
+  const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction({
+    onError: (error) => {
+      message.destroy()
+      setSubmiting(false);
+    },
+  });
   const suiClient = useSuiClient();
   const client = new SealClient({
     suiClient,
@@ -380,6 +385,7 @@ export default function Me() {
             setFileList?.(decrypted || []);
           },
         });
+        return
       }
       setFileList(data || []);
     } catch (err) {

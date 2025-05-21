@@ -87,7 +87,7 @@ const MediaList = ({ groupInfo, data = [], loading, onUpload, onPostMessage, onD
             }
             {/* <WalrusMedia blobId={record?.thumbnailBlobId || record?.decryptedUrl  || record?.blobId}  /> */}
           {/* )} */}
-          <div className="flex-shrink-0 ml-4">
+          <div className="flex-shrink-1 ml-4">
             <div className="mb-1 font-medium">{record.title}</div>
             <div className="mb-1 text-md text-gray-500">{record.description}</div>
             {/* <div className="text-xs text-gray-400">
